@@ -1,9 +1,9 @@
-// FCAI – Programming 1 – 2022 - Assignment 2 
+// FCAI â€“ Programming 1 â€“ 2022 - Assignment 2 
 // Program Name: Polybius Square Cipher.cpp
 // Program Description: Each letter is replaced with two numbers 
 // Last Modification Date: 25/3/2022
-// Author and ID : Hazem Medhat  , 20210116 
-// Teaching Assistant: 
+// Author : Hazem Medhat 
+
 #include <iostream>
 #include <string>
 #include<algorithm>
@@ -23,6 +23,7 @@ int main()
     for (int i = 0; i < 5; i++) {
         cout << "Enter the key : ";
         cin >> key;
+    //save keys in string    
         x += key;
     }
     char table[6][6] = { { ' ' ,x[0],x[1],x[2],x[3] ,x[4]},
@@ -53,12 +54,6 @@ int main()
                         Cipher += table[i][0];
                         Cipher += table[0][j];
                     }
-                    if (plain_text[n] == 'J') {
-                        Cipher += x[1];
-                        Cipher += x[3];
-                        break;
-                    }
-
                 }
             }
         }
