@@ -1,0 +1,86 @@
+// FCAI – Programming 1 – 2022 - Assignment 2 
+// Program Name: Polybius Square Cipher.cpp
+// Program Description: Each letter is replaced with two numbers 
+// Last Modification Date: 25/3/2022
+// Author and ID : Hazem Medhat  , 20210116 
+// Teaching Assistant: 
+#include <iostream>
+#include <string>
+#include<algorithm>
+using namespace std;
+int main()
+{
+    string x, y;
+    cout << "Do you want to encrpyt or decrpyt ?" << endl;
+    cin >> y;
+    while (y != "encrpyt" && y != "decrpyt") {
+        cout << "Wrong choise  " << endl;
+        cout << "please enter again :  ";
+        cin >> y;
+    }
+    char key;
+    //Take the key 
+    for (int i = 0; i < 5; i++) {
+        cout << "Enter the key : ";
+        cin >> key;
+        x += key;
+    }
+    char table[6][6] = { { ' ' ,x[0],x[1],x[2],x[3] ,x[4]},
+                           { x[0],'A','B','C','D','E'},
+                           { x[1],'F','G','H','I','K'},
+                           { x[2],'L','M','N','O','P'},
+                           { x[3],'Q','R','S','T','U'},
+                           { x[4],'V','W','X','Y','Z'} };
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 6; j++) {
+            cout << table[i][j] << " ";
+        }
+        cout << endl;
+    }
+    if (y == "encrpyt") {
+        string plain_text, Cipher = "";
+        int len = 0;
+        cout << "Enter the plain text :  ";
+        cin.ignore();
+        getline(cin, plain_text);
+        len = plain_text.length();
+        //turn the string to uppercase
+        transform(plain_text.begin(), plain_text.end(), plain_text.begin(), ::toupper);
+        for (int n = 0; n < len; n++) {
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 6; j++) {
+                    if (plain_text[n] == table[i][j]) {
+                        Cipher += table[i][0];
+                        Cipher += table[0][j];
+                    }
+                    if (plain_text[n] == 'J') {
+                        Cipher += x[1];
+                        Cipher += x[3];
+                        break;
+                    }
+
+                }
+            }
+        }
+        cout << "Cipher text : " << " " << Cipher;
+        cout << endl;
+    }
+    if (y == "decrpyt") {
+        string cipher_Text, plain = "";
+        cout << "Enter the Cipher text :  ";
+        int size = 0;
+        cin.ignore();
+        getline(cin, cipher_Text);
+        size = cipher_Text.length();
+        for (int n = 0; n < size; n += 2) {
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 6; j++) {
+                    if (cipher_Text[n] == table[i][0] && cipher_Text[n + 1] == table[0][j]) {
+                        plain += table[i][j];
+                    }
+                }
+            }
+        }
+        cout << "plain text : " << plain;
+    }
+}
